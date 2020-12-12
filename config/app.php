@@ -281,6 +281,8 @@ return [
         Webkul\BookingProduct\Providers\BookingProductServiceProvider::class,
         Webkul\SocialLogin\Providers\SocialLoginServiceProvider::class,
         Webkul\DebugBar\Providers\DebugBarServiceProvider::class,
+        RR\ThemeX\Providers\ThemeXServiceProvider::class
+
     ],
 
     /*
