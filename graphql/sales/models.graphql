@@ -1,0 +1,290 @@
+type DownloadableLinkPurchased{
+    id: ID!
+    product_name: String
+    name: String
+    url: String
+    file: String
+    file_name: String
+    type: String
+    download_bought: Int
+    download_used: Int
+    status: String
+    customer: Customer! @belongsTo
+    order: Order! @belongsTo
+    order_item: OrderItem! @belongsTo
+}
+
+type Order{
+    id: ID!
+    increment_id: String
+    status: String
+    channel_name: String
+    is_guest: Boolean
+    customer_email: String
+    customer_first_name: String
+    customer_last_name: String
+    customer_company_name: String
+    customer_vat_id: String
+    shipping_method: String
+    shipping_title: String
+    shipping_description: String
+    coupon_code: String
+    is_gift: Boolean
+    total_item_count: Int
+    total_qty_ordered: Int
+    base_currency_code: String
+    channel_currency_code: String
+    order_currency_code: String
+    grand_total: Float
+    base_grand_total: Float
+    grand_total_invoiced: Float
+    base_grand_total_invoiced: Float
+    grand_total_refunded: Float
+    base_grand_total_refunded: Float
+    sub_total: Float
+    base_sub_total: Float
+    sub_total_invoiced: Float
+    sub_total_refunded: Float
+    base_sub_total_refunded: Float
+    discount_percent: Float
+    discount_amount: Float
+    base_discount_amount: Float
+    discount_invoiced: Float
+    base_discount_invoiced: Float
+    discount_refunded: Float
+    base_discount_refunded: Float
+    tax_amount: Float
+    base_tax_amount: Float
+    tax_amount_invoiced: Float
+    tax_amount_refunded: Float
+    base_tax_amount_refunded: Float
+    shipping_amount: Float
+    base_shipping_amount: Float
+    shipping_invoiced: Float
+    base_shipping_invoiced: Float
+    shipping_refunded: Float
+    base_shipping_refunded: Float
+    customer: Customer @morphTo
+    channel: Channel! @belongsTo
+    channel_type: String
+    cart: Cart! @belongsTo
+    applied_cart_rule_ides: String
+    shipping_discount_amount: Float
+    base_shipping_discount_amount: Float
+    items: [OrderItem!] @hasMany
+    all_items: [OrderItem!] @hasMany
+    comments: [OrderComment!] @hasMany
+    shipments: [Shipment] @hasMany
+    invoices: [Invoice] @hasMany
+    refunds: [Refund] @hasMany
+    addresses: [OrderAddress] @hasMany
+    payment: OrderPayment
+    billing_address: [OrderAdress]
+    shipping_address: [OrderAdress]
+}
+
+type OrderItem{
+    id: ID!
+    sku: String
+    type: String
+    name: String
+    coupon_code: String
+    weight: Float
+    total_weight: Float
+    qty_orderd: Int
+    qty_shipped: Int
+    qty_invoiced: Int
+    qty_canceled: Int
+    qty_refunded: Int
+    price: Float
+    base_price: Float
+    total: Float
+    base_total: Float
+    total_invoiced: Float
+    base_total_invoiced: Float
+    amount_refunded: Float
+    base_amount_refunded: Float
+    discount_percent: Float
+    base_discount_percent: Float
+    discount_invoiced: Float
+    base_discount_invoiced: Float
+    discount_refunded: Float
+    base_discount_refunded: Float
+    tax_percent: Float
+    tax_amount: Float
+    base_tax_amount: Float
+    tax_amount_invoiced: Float
+    base_tax_amount_invoiced: Float
+    tax_amount_refunded: Float
+    base_tax_amount_refunded: Float
+    product: Product @morphTo
+
+    order: Order @belongsTo
+
+    child: Product @hasOne
+    parent: Product @belongsTo
+    children: [Product] @hasMany
+    invoice_items: [InvoiceItem]
+    shipment_items: [ShippmentItem]
+    refund_items: [RefundItem]
+    downloadable_link_purchased: [DownloadableLinkPurchased]
+}
+
+type RefundItem{
+    id:ID!
+    name: String
+    description: String
+    sku: String
+    qty: Int
+    price: Float
+    base_price: Float
+    total: Float
+    base_total: Float
+    tax_amount: Float
+    base_tax_amount: Float
+    discount_percent: Float
+    discount_amount: Float
+    base_discount_amount: Float
+    refund: Refund! @belongsTo
+    order_item: OrderItem! @belongsTo
+    product: Product @morphTo
+    child: RefundItem @hasOne
+}
+
+type ShippmentItem{
+    id: ID!
+    name: String
+    description: String
+    sku: String
+    qty: Int
+    weight: Int
+    price: Float
+    base_price: Float
+    total: Float
+    base_total: Float
+    additional: String
+    shipment: Shipment @belongsTo
+    order_item: OrderItem @belongsTo
+    product: Product @morphTo
+    child: ShippmentItem @belongsTo
+
+}
+
+type InvoiceItem{
+    id:ID!
+
+    invoicd: Invoice @belongsTo
+    order_item: OrderItem @belongsTo
+    product: Product @morphTo
+    child: InvoiceItem @hasOne
+    children: [InvoiceItem] @hasMany
+}
+
+type OrderComment{
+    id: ID!
+    comment: String
+    customer_notified: Boolean
+    order: Order! @belongsTo
+}
+
+type Shipment{
+    id: ID!
+    status: String
+    total_qty: Int
+    total_weight: Int
+    carrier_code: String
+    carrier_title: String
+    track_number: String
+    email_sent: Boolean
+    inventory_source_name: String
+    order: Order @belongsTo
+    items: [ShippmentItem] @hasMany
+    inventory_source: InventorySrouce @belongsTo
+    customer: Customer @morphTo
+    address: OrderAdress @belongsTo
+
+}
+
+type Invoice{
+    id: ID!
+    increment_id: String
+    state: String
+    email_sent: Boolean
+    base_currency_code: String
+    channel_currency_code: String
+    order_currency_code: String
+    sub_total: Float
+    base_sub_total: Float
+    grand_total: Float
+    base_grand_total: Float
+    shipping_amount: Float
+    base_shipping_amount: Float
+    tax_amount: Float
+    base_tax_amount: Float
+    discount_amount: Float
+    base_discount_amount: Float
+    order: Order @belongsTo
+    items: [InvoiceItem] @hasMany
+    customer: Customer @morphTo
+    channel: Channel @morphTo
+    address: OrderAdress @belongsTo
+}
+
+type Refund{
+    id: ID!
+    increment_id: String
+    state: String
+    email_send: Boolean
+    total_qty: Int
+    base_currency_code: String
+    channel_currency_code: String
+    order_currency_code: String
+    adjustment_refund: Float
+    adjustment_fee: Float
+    base_adjustment_fee: Float
+    sub_total: Float
+    base_sub_total: Float
+    grand_total: Float
+    base_grand_total: Float
+    shipping_amount: Float
+    base_shipping_amount: Float
+    tax_amount: Float
+    base_tax_amount: Float
+    discount_percent: Float
+    discount_amount: Float
+    base_discount_amount: Float
+    order: Order! @belongsTo
+    items: [RefundItem] @hasMany
+    customer: Customer @morphTo
+    channel: Channel @morphTo
+    address: OrderAdress @belongsTo
+}
+
+type OrderPayment{
+    id: ID!
+    method: String
+    method_title: String
+    order: Order @belongsTo
+}
+
+type OrderAdress{
+    id: ID!
+
+    address_type: String
+    first_name: String
+    last_name: String
+    gender: String
+    company_name: String
+    address1: String
+    address2: String
+    postcode: String
+    dcity: String
+    state: String
+    country: String
+    email: String
+    phone: String
+    vat_id: String
+    default_address: Boolean
+    additional: String
+    order: Order @belongsTo
+}

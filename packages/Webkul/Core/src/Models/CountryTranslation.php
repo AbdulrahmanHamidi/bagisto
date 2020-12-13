@@ -10,4 +10,8 @@ class CountryTranslation extends Model implements CountryTranslationContract
     public $timestamps = false;
 
     protected $fillable = ['name'];
+
+    public function country(){
+        return $this->belongsTo(CountryProxy::modelClass());
+    }
 }

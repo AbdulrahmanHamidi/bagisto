@@ -16,4 +16,8 @@ class CurrencyExchangeRate extends Model implements CurrencyExchangeRateContract
         'target_currency',
         'rate',
     ];
+
+    public function target_currency(){ // TODO pull request
+        return $this->hasOne(CurrencyProxy::modelClass());
+    }
 }

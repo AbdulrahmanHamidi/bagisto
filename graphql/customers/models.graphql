@@ -1,0 +1,83 @@
+type Customer{
+    id: ID!
+    first_name: String
+    last_name: String
+    gender: String
+    date_of_birth: Date
+    email: String
+    status: Boolean
+    password: String
+    api_token: String
+    customer_group_id: Int
+    subscribed_to_news_letter: Boolean
+    remember_token: String
+    is_verified: Boolean
+    token: String
+    notes: String
+    phone: String
+    created_at: DateTime
+    updated_at: DateTime
+    group: CustomerGroup
+    addresses: [CustomerAddress]
+    default_address: CustomerAddress
+    wishlist_items: [Wishlist]
+    inactive_carts: [Cart]
+    active_carts: [Cart]
+    all_reviews: [ProductReview]
+    all_orders: [Order]
+}
+
+type ProductReview{
+    id: ID!
+    title: String
+    rating: Int
+    comment: String
+    status: String
+    name: String
+    customer: Customer! @belongsTo
+    product: Product! @belongsTo
+    created_at: DateTime
+    updated_at: DateTime
+}
+
+type CustomerGroup{
+    id: ID!
+    name: String
+    is_user_defined: Int
+    code: String
+    customers: [Customer] @hasMany(relation: "customer")
+}
+
+type CustomerAddress{
+    id: ID!
+    address_type: String
+    first_name: String
+    last_name: String
+    gender: String
+    company_name: String
+    address1: String
+    address2: String
+    postcode: String
+    dcity: String
+    state: String
+    country: String
+    email: String
+    phone: String
+    vat_id: String
+    default_address: Boolean
+    additional: String
+    customer: Customer! @belongsTo
+}
+
+type Wishlist{
+    id: ID!
+    item_options: String
+    moved_to_cart: Date
+    shared: Boolean
+    time_of_moving: Date
+    additional: String
+    channel: Channel
+    product: Product!
+    customer: Customer
+}
+

@@ -38,6 +38,7 @@ class Attribute extends TranslatableModel implements AttributeContract
         return $this->hasMany(AttributeOptionProxy::modelClass());
     }
 
+
     /**
      * Scope a query to only include popular users.
      *

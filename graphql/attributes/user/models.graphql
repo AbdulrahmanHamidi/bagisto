@@ -1,0 +1,20 @@
+type Admin{
+    id: ID!
+    name: String
+    email: String
+    password: String
+    api_token: String
+    status: Boolean
+    remember_token: String
+    role: Role
+}
+
+type Role{
+    id: ID!
+    name: String
+    description: String
+    permission_type: String
+    permissions: String
+    admins: [Admin]
+}
+

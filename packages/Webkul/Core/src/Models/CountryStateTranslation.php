@@ -10,4 +10,9 @@ class CountryStateTranslation extends Model implements CountryStateTranslationCo
     public $timestamps = false;
 
     protected $fillable = ['default_name'];
+
+    public function country_state(){ // TODO pull request
+        return  $this->belongsTo(CountryStateProxy::modelClass());
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace Webkul\Shop\Http\Controllers;
 
+use Webkul\Category\Models\Category;
 use Webkul\Shop\Http\Controllers\Controller;
 use Webkul\Core\Repositories\SliderRepository;
 use Webkul\Product\Repositories\SearchRepository;
@@ -47,7 +48,8 @@ class HomeController extends Controller
      * @return \Illuminate\View\View 
      */
     public function index()
-    {
+        {
+            dd(Category::find(3)->products);
         $currentChannel = core()->getCurrentChannel();
 
         $currentLocale = core()->getCurrentLocale();

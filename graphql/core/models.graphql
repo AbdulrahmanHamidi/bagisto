@@ -1,0 +1,121 @@
+type Channel{
+    id: ID!
+    code: String
+    name: String
+    decription: String
+    timezone: String
+    theme: String
+    hostname: String
+    logo: String
+    favicon: String
+    home_page_content: String
+    footer_content: String
+    locales: Locale
+    default_locale: Locale!
+    currencies: [Currency!] @belongsToMany
+    inventory_sources:[InventorySrouce!] @belongsToMany
+    base_currency: Currency! @belongsTo
+    home_seo: String
+    root_category: Category!
+}
+
+type Locale{
+    id: ID!
+    code: String
+    name: String
+    direction: String
+    locale_image: String
+}
+
+type Currency{
+    id: ID!
+    code: String
+    name: String
+    symbol: String
+    exchange_rate: CurrencyExchangeRate
+
+}
+
+type CurrencyExchangeRate{
+    id: ID!
+    rate: Float
+    target_currency: Currency @hasOne
+}
+
+type OrderAddress{
+    id: ID!
+    address_type: String
+    first_name: String
+    last_name: String
+    gender: String
+    company_name: String
+    address1: String
+    address2: String
+    postcode: String
+    dcity: String
+    state: String
+    country: String
+    email: String
+    phone: String
+    vat_id: String
+    default_address: Boolean
+    additional: String
+    order: Order @belongsTo
+    customer: Customer @belongsTo
+}
+
+type CoreConfig{
+    id: ID!
+    code: String
+    value: String
+    channel_code: String
+    locale_code: String
+}
+
+type Country{
+    id: ID!
+    code: String
+    name: String
+}
+
+type CountryState{
+    id: ID!
+    country_code: String
+    code: String
+    default_name: String
+    country: Country!
+}
+
+type CountryStateTranslation{
+    id: ID!
+    locale: String
+    default_name: String
+    country_state: CountryState!
+}
+
+type CountryTranslation{
+    id: ID!
+    locale: String
+    name: String
+    country: Country!
+}
+
+type Slider{
+    id: ID!
+    title: String
+    path: String
+    content: String
+    slider_path: String
+    locale: String
+    channel: Channel
+}
+
+type SubscribersList{
+    id: ID!
+    email: String
+    is_subscribed: Boolean
+    token: String
+    channel: Channel
+
+}
+

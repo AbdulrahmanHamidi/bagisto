@@ -1,0 +1,26 @@
+type Category{
+    id: ID!
+    position: Int
+    image: String
+    status: Boolean
+    display_mode:String
+    category_icon_path:String
+    additional:String
+    parent: Category
+#    filterableAttributes:[Attribute]
+    products: [Product] @belongsToMany
+    filterableAttributes: [Attribute!] @belongsToMany
+    translations: [CategoryTranslation!] @hasMany
+
+}
+
+type CategoryTranslation{
+    id: ID!
+    name: String
+    slug: String
+    description: String
+    meta_description: String
+    meta_keywords: String
+    category: Category! @belongsTo
+    locale: Locale @belongsTo
+}

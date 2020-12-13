@@ -1,0 +1,53 @@
+type Attribute{
+    id: ID!
+    code: String
+    admin_name: String
+    type: String
+    validation: String
+    position: Int
+    is_required: Boolean
+    is_unique: Boolean
+    value_per_locale: Boolean
+    value_per_channel: Boolean
+    is_filterable: Boolean
+    is_configurable: Boolean
+    is_user_defined: Boolean
+    is_visible_on_front: Boolean
+    swatch_type: String
+    use_in_flat: Boolean
+    is_comparable: Boolean
+    created_at:DateTime
+    updated_at:DateTime
+}
+
+type AttributeFamily{
+    id: ID!
+    code: String
+    name: String
+    status : Boolean
+    is_user_defined: Boolean
+    products: [Product!]
+    attribute_groups: [AttributeGroup!]
+}
+
+type AttributeGroup{
+    id: ID!
+    name: String
+    position: Int
+    is_user_defined: Boolean
+}
+type ProductAttributeValue{
+    id: ID!
+    locale: String
+    channel: String
+    text_value: String
+    boolean_value: Boolean
+    integer_value: Int
+    float_value: Float
+    datetime_value: DateTime
+    date_value: Date
+    json_value: String
+    product: Product! @belongsTo
+    attribute: Attribute! @belongsTo
+}
+

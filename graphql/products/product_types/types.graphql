@@ -1,0 +1,54 @@
+type ProductGroupedProduct{
+    id: ID!
+    qty: InventorySrouce
+    sort_order: Int
+    product: Product @belongsTo
+    associated_product: Product @belongsTo
+}
+
+type ProductBundleOptionProduct{
+    id: ID!
+    qty: Int
+    is_user_defined: Boolean
+    is_default: Boolean
+    sort_order: Int
+    bundle_option:ProductBundleOption @belongsTo
+    product: Product @belongsTo
+}
+
+type ProductBundleOption{
+    id: ID!
+    type: String
+    is_required: Boolean
+    sort_order: Int
+    product: Product @belongsTo
+    bundle_option_products: [ProductBundleOptionProduct!]
+
+}
+
+type ProductDownloadableSample{
+    id: ID!
+    url: String
+    file: String
+    file_name: String
+    type: String
+    sort_order: Int
+    product: Product! @belongsTo
+}
+
+type ProductDownloadableLink{
+    id: ID!
+    url: String
+    file: String
+    file_name: String
+    type: String
+    price: Float
+    sample_url: String
+    sample_file: String
+    sample_file_name: String
+    sample_type: String
+    downloads: Int
+    sort_order: Int
+    product: Product! @belongsTo
+
+}

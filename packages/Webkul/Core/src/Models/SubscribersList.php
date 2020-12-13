@@ -23,4 +23,9 @@ class SubscribersList extends Model implements SubscribersListContract
     ];
 
     protected $hidden = ['token'];
+
+
+    public function channel(){ // TODO pull request
+        return $this->belongsTo(ChannelProxy::modelClass());
+    }
 }

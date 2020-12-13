@@ -281,7 +281,8 @@ return [
         Webkul\BookingProduct\Providers\BookingProductServiceProvider::class,
         Webkul\SocialLogin\Providers\SocialLoginServiceProvider::class,
         Webkul\DebugBar\Providers\DebugBarServiceProvider::class,
-        RR\ThemeX\Providers\ThemeXServiceProvider::class
+        RR\ThemeX\Providers\ThemeXServiceProvider::class,
+
 
     ],
 
@@ -342,5 +343,6 @@ return [
         'Concord' => Konekt\Concord\Facades\Concord::class,
         'Helper'  => Konekt\Concord\Facades\Helper::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'GraphQL' => 'Rebing\GraphQL\Support\Facades\GraphQL',
     ],
 ];

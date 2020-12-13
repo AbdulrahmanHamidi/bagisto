@@ -24,4 +24,8 @@ class CountryState extends TranslatableModel implements CountryStateContract
 
         return $array;
     }
+
+    public function country(){ // TODO pull request
+        return $this->belongsTo(CountryProxy::modelClass());
+    }
 }

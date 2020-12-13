@@ -43,6 +43,10 @@ class CartAddress extends Address implements CartAddressContract
         parent::boot();
     }
 
+
+    public function base_address(){
+        return parent;
+    }
     /**
      * Get the shipping rates for the cart address.
      */

@@ -42,4 +42,8 @@ class Slider extends Model implements SliderContract
     {
         return $this->image_url();
     }
+
+    public function channel(){ // TODO pull request
+        return $this->belongsTo(ChannelProxy::modelClass());
+    }
 }

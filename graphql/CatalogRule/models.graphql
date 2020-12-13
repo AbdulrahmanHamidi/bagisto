@@ -1,0 +1,42 @@
+type CatalogRule{
+    id: ID!
+    name: String
+    description: String
+    starts_from: Date
+    ends_till: Date
+    status: Boolean
+    condition_type: Boolean
+    conditions: String
+    end_other_rules: Boolean
+    action_type: String
+    discount_amount: Float
+    sort_order: Int
+    channels: [Channel] @belongsToMany
+    customer_groups: [CustomerGroup] @belongsToMany
+}
+
+type CatalogRuleProduct{
+    id: ID!
+    starts_from: DateTime
+    ends_till: DateTime
+    end_other_rules: Boolean
+    action_type: String
+    discount_amount: Float
+    sort_order: Int
+    product: Product
+    customer_group: CustomerGroup
+    catalog_rule: CatalogRule
+    channel: Channel
+}
+
+type CatalogRulProductPrice{
+    id: ID!
+    price: Float
+    rule_date: Date
+    starts_from: DateTime
+    ends_till: DateTime
+    product: Product
+    customer_group: CustomerGroup
+    catalog_rule: CatalogRule
+    channel: Channel
+}

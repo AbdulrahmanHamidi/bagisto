@@ -1,0 +1,111 @@
+type Cart{
+    id: ID!
+    shipping_method: String
+    coupon_code: String
+    is_gift: Boolean
+    items_count: Int
+    items_qty: Float
+    exchange_rate: Float
+    global_currency_code: String
+    base_currency_code: String
+    channel_currency_code: String
+    cart_currency_code: String
+    grand_total: Float
+    base_grand_total: Float
+    sub_total: Float
+    base_sub_total: Float
+    tax_total: Float
+    base_tax_total: Float
+    discount_amount: Float
+    base_discount_amount: Float
+    checkout_method: String
+    is_guest: Boolean
+    is_active: Boolean
+    conversion_time: DateTime
+    appiled_cart_rule_ids: String
+
+    items: [CartItem] @hasMany
+    all_items: [CartItem] @hasMany
+    addresses: [CartAddress] @hasMany
+    billing_address: [CartAddress]
+    shipping_address:[CartAddress]
+    shipping_rates: [CartShippingRate]
+    selected_shipping_rate: [CartShippingRate]
+    payment: CartPayment
+}
+
+type CartItem{
+    id: ID!
+    quantity: Int
+    sku: String
+    type: String
+    name: String
+    coupon_code: String
+    weight: Float
+    total_weight: Float
+    base_total_weight: Float
+    price: Float
+    base_price: Float
+    total: Float
+    base_total: Float
+    tax_percent: Float
+    base_tax_percent: Float
+    discount_percent: Float
+    discount_amount: Float
+    base_discount_amount: Float
+    additional: String
+    custom_price: Float
+    applied_cart_rule_ids: String
+    product: Product
+    product_flat:ProductFlat
+    cart: Cart
+    child: CartItem
+    parent: CartItem
+    children: [CartItem]
+}
+
+type CartAddress{
+    id: ID!
+    address_type: String
+    first_name: String
+    last_name: String
+    gender: String
+    company_name: String
+    address1: String
+    address2: String
+    postcode: String
+    dcity: String
+    state: String
+    country: String
+    email: String
+    phone: String
+    vat_id: String
+    default_address: Boolean
+    additional: String
+
+    shipping_rates: [CartShippingRate]
+    cart: Cart! @belongsTo
+    customer: Customer! @belongsTo
+}
+
+type CartShippingRate{
+    id: ID!
+    carrier: String
+    carrier_title: String
+    method: String
+    method_title: String
+    method_description: String
+    price: Float
+    base_price: Float
+    discount_amount: Float
+    base_discount_amount: Float
+    shipping_address: CartAddress @belongsTo
+}
+
+type CartPayment{
+    id: ID!
+    method: String
+    method_title: String
+    cart: Cart @belongsTo
+}
+

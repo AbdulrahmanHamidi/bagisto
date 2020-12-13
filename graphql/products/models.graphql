@@ -1,0 +1,127 @@
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+type ProductFlat{
+    id: ID!
+    name: String!
+    url_key: String
+    price: String!
+    product:Product @belongsTo
+    variants: [ProductFlat!]
+    parent:ProductFlat @belongsTo
+    images: [ProductImage!]
+    videos: [ProductVideo!]
+    categories:[Category!] @belongsToMany
+    related_products: [Product] @belongsToMany
+    up_sells: [Product] @belongsToMany
+    cross_sells: [Product] @belongsToMany
+    downloadable_samples: [ProductDownloadableSample]
+    downloadable_links: [ProductDownloadableLink]
+    grouped_products: [Product]
+    customer_group_prices:[ProductCustomerGroupPrice]
+    bundle_options:[ProductBundleOptionProduct]
+#    attribute_family: AttributeFamily! @belongsTo
+}
+
+type Product{
+    id: ID!
+    sku: String!
+    type: String!
+    product_flats: [ProductFlat!]
+    variants: [ProductFlat]
+    images: [ProductImage]
+    videos: [ProductVideo]
+    attribute_family: AttributeFamily! @belongsTo
+    attribute_values: [ProductAttributeValue!]
+    reviews: [ProductReview!]
+    parent: Product @belongsTo
+    categories:[Category]
+    inventories: [Inventory!]
+    ordered_inventories:[Inventory!]
+    inventory_sources: [InventorySrouce!] @belongsToMany
+    super_attributes: [Attribute!] @belongsToMany
+    related_products: [Product] @belongsToMany
+    up_sells: [Product] @belongsToMany
+    cross_sells: [Product] @belongsToMany
+    grouped_products: [Product]
+    customer_group_prices:[ProductCustomerGroupPrice]
+    downloadable_samples: [ProductDownloadableSample]
+    downloadable_links: [ProductDownloadableLink]
+    bundle_options:[ProductBundleOptionProduct]
+}
+
+type ProductCustomerGroupPrice{
+    id: ID!
+    qty: Int
+    value_type: String
+    value: Float
+    product: Product! @belongsTo
+    customer_group: CustomerGroup! @belongsTo
+}
+
+
+
+type ProductImage{
+    id: ID!
+    type: String
+    path: String!
+    product: Product!
+}
+
+type ProductVideo{
+    id: ID!
+    type: String
+    path: String
+    product: Product! @belongsTo
+}
+
+
+
+type Inventory{
+    id:ID!
+    qty:Int
+    product:Product @belongsTo
+    inventory_source: InventorySrouce
+}
+
+type InventorySrouce{
+    id: ID!
+    code: String
+    name: String
+    description: String
+    contact_name: String
+    contact_email: String
+    contact_number: String
+    contact_fax: String
+    country: String
+    state: String
+    city: String
+    street: String
+    postcode: String
+    priority: InventorySrouce
+    latitude: Float
+    Lognitude: Float
+    status: Int
+    created_at: DateTime
+    updated_at: DateTime
+
+}
+type ProductOrderedInventory{
+    id: ID!
+    qty: Int
+    product: Product!
+    channe: Channel!
+}
+
+type ProductInventory{
+    id: ID!
+    qty: Int
+    product: Product! @belongsTo
+    inventory_source: InventorySrouce! @belongsTo
+}
+

@@ -7,20 +7,28 @@ return [
     ],
     [
         'key' => 'themex.settings',
-        'name' => 'Custom Settings',
+        'name' => 'Fuck you zaher',
         'sort' => 1,
     ],
     [
         'key' => 'themex.settings.settings',
-        'name' => 'Custom Groupings',
+        'name' => 'Fuck you zaher',
         'sort' => 1,
         'fields' => [
             [
-                'name' => 'status',
-                'title' => 'Status',
-                'type' => 'boolean',
-                'channel_based' => true,
-                'locale_based' => false
+                'name'          => 'weight_unit',
+                'title'         => 'admin::app.admin.system.weight-unit',
+                'type'          => 'select',
+                'options'       => [
+                    [
+                        'title' => 'lbs',
+                        'value' => 'lbs',
+                    ], [
+                        'title' => 'kgs',
+                        'value' => 'kgs',
+                    ],
+                ],
+                'channel_based' => true
             ]
         ]
     ]

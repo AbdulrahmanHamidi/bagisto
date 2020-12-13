@@ -27,7 +27,7 @@ class CategoryTranslation extends Model implements CategoryTranslationContract
         'locale_id',
     ];
 
-    public function locale(){
+    public function locale(){ //TODO pull request improvments
         return $this->belongsTo(LocaleProxy::modelClass());
     }
 }

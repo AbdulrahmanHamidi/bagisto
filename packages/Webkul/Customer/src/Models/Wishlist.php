@@ -3,6 +3,7 @@
 namespace Webkul\Customer\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Webkul\Core\Models\ChannelProxy;
 use Webkul\Product\Models\ProductProxy;
 use Webkul\Customer\Contracts\Wishlist as WishlistContract;
 
@@ -30,5 +31,13 @@ class Wishlist extends Model implements WishlistContract
     public function product()
     {
         return $this->hasOne(ProductProxy::modelClass(), 'id', 'product_id');
+    }
+
+    public function channel(){ //TODO pull request
+        return $this->belongsTo(ChannelProxy::modelClass());
+    }
+
+    public function customer(){ //TODO pull request
+        return $this->belongsTo(CustomerProxy::modelClass());
     }
 }
