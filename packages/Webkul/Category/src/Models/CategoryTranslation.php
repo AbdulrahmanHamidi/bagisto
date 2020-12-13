@@ -28,7 +28,6 @@ class CategoryTranslation extends Model implements CategoryTranslationContract
     ];
 
     public function locale(){
-
         return $this->belongsTo(LocaleProxy::modelClass());
     }
 }
