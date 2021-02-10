@@ -1,5 +1,3 @@
-@inject ('productImageHelper', 'Webkul\Product\Helpers\ProductImage')
-
 @extends('shop::customers.account.index')
 
 @section('page_title')
@@ -17,7 +15,7 @@
         <span class="account-heading">{{ __('shop::app.customer.account.review.index.title') }}</span>
 
         @if (count($reviews) > 1)
-            <div class="account-action pull-right">
+            <div class="account-action float-right">
                 <a href="{{ route('customer.review.deleteall') }}" class="theme-btn light unset">
                     {{ __('shop::app.customer.account.wishlist.deleteall') }}
                 </a>
@@ -33,7 +31,7 @@
                 <div class="row col-12 fs16">
                     <div class="col-12 row">
                         @php
-                            $image = $productImageHelper->getProductBaseImage($review->product);
+                            $image = productimage()->getProductBaseImage($review->product);
                         @endphp
 
                         <a
@@ -55,7 +53,7 @@
 
                             <star-ratings ratings="{{ $review->rating }}"></star-ratings>
 
-                            <h2 class="fw6">{{ $review->title }}</h2>
+                            <h5 class="fw6">{{ $review->title }}</h5>
 
                             <p>{{ $review->comment }}</p>
                         </div>

@@ -3,6 +3,7 @@
 namespace Webkul\Velocity\Http\Controllers\Shop;
 
 use Illuminate\Http\Request;
+use Webkul\Product\Facades\ProductImage;
 use Webkul\Velocity\Http\Shop\Controllers;
 use Webkul\Checkout\Contracts\Cart as CartModel;
 use Cart;
@@ -28,14 +29,14 @@ class ShopController extends Controller
         if ($product) {
             $productReviewHelper = app('Webkul\Product\Helpers\Review');
 
-            $galleryImages = $this->productImageHelper->getProductBaseImage($product);
+            $galleryImages = ProductImage::getProductBaseImage($product);
 
             $response = [
                 'status'  => true,
                 'details' => [
                     'name'         => $product->name,
                     'urlKey'       => $product->url_key,
-                    'priceHTML'    => $product->getTypeInstance()->getPriceHtml(),
+                    'priceHTML'    => view('shop::products.price', ['product' => $product])->render(),
                     'totalReviews' => $productReviewHelper->getTotalReviews($product),
                     'rating'       => ceil($productReviewHelper->getAverageRating($product)),
                     'image'        => $galleryImages['small_image_url'],
@@ -58,6 +59,10 @@ class ShopController extends Controller
     {
         $slug = request()->get('category-slug');
 
+        if (! $slug) {
+            abort(404);
+        }
+
         switch ($slug) {
             case 'new-products':
             case 'featured-products':
@@ -71,7 +76,13 @@ class ShopController extends Controller
                 }
 
                 foreach ($products as $product) {
-                    array_push($formattedProducts, $this->velocityHelper->formatProduct($product));
+                    if (core()->getConfigData('catalog.products.homepage.out_of_stock_items')) {
+                        array_push($formattedProducts, $this->velocityHelper->formatProduct($product));
+                    } else {
+                        if ($product->isSaleable()) {
+                            array_push($formattedProducts, $this->velocityHelper->formatProduct($product));
+                        }
+                    }
                 }
 
                 $response = [

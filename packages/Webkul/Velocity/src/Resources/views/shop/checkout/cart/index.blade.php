@@ -1,5 +1,4 @@
 @inject ('reviewHelper', 'Webkul\Product\Helpers\Review')
-@inject ('productImageHelper', 'Webkul\Product\Helpers\ProductImage')
 
 @extends('shop::layouts.master')
 
@@ -30,7 +29,7 @@
     <script type="text/x-template" id="cart-template">
         <div class="container">
             <section class="cart-details row no-margin col-12">
-                <h1 class="fw6 col-12">{{ __('shop::app.checkout.cart.title') }}</h1>
+                <h2 class="fw6 col-12">{{ __('shop::app.checkout.cart.title') }}</h2>
 
                 @if ($cart)
                     <div class="cart-details-header col-lg-6 col-md-12">
@@ -88,7 +87,7 @@
                                                     :onerror="`this.src='${this.$root.baseUrl}/vendor/webkul/ui/assets/images/product/large-product-placeholder.png'`">
                                             </a>
 
-                                            <div class="product-details-content col-7 pr0">
+                                            <div class="product-details-content col-6 pr0">
                                                 <div class="row item-title no-margin">
                                                     <a
                                                         href="{{ route('shop.productOrCategory.index', $url_key) }}"
@@ -113,7 +112,9 @@
                                                 @endif
 
                                                 <div class="row col-12 no-padding no-margin">
-                                                    @include ('shop::products.price', ['product' => $product])
+                                                    <div class="product-price">
+                                                        <span>{{ core()->currency($item->base_price) }}</span>
+                                                    </div>
                                                 </div>
 
                                                 @php
@@ -143,22 +144,24 @@
                                                         @endif
                                                     @endauth
 
-                                                    <a
-                                                        class="unset
-                                                            @auth('customer')
-                                                                ml10
-                                                            @endauth
-                                                        "
-                                                        href="{{ route('shop.checkout.cart.remove', ['id' => $item->id]) }}"
-                                                        @click="removeLink('{{ __('shop::app.checkout.cart.cart-remove-action') }}')">
+                                                    <div class="d-inline-block">
+                                                        <a
+                                                            class="unset
+                                                                @auth('customer')
+                                                                    ml10
+                                                                @endauth
+                                                            "
+                                                            href="{{ route('shop.checkout.cart.remove', ['id' => $item->id]) }}"
+                                                            @click="removeLink('{{ __('shop::app.checkout.cart.cart-remove-action') }}')">
 
-                                                        <span class="rango-delete fs24"></span>
-                                                        <span class="align-vertical-top">{{ __('shop::app.checkout.cart.remove') }}</span>
-                                                    </a>
+                                                            <span class="rango-delete fs24"></span>
+                                                            <span class="align-vertical-super">{{ __('shop::app.checkout.cart.remove') }}</span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="product-quantity col-2 no-padding">
+                                            <div class="product-quantity col-3 no-padding">
                                                 <quantity-changer
                                                     :control-name="'qty[{{$item->id}}]'"
                                                     quantity="{{ $item->quantity }}">
@@ -243,7 +246,7 @@
 
                                     <button
                                         type="submit"
-                                        class="theme-btn light mr15 pull-right unset">
+                                        class="theme-btn light mr15 float-right unset">
 
                                         {{ __('shop::app.checkout.cart.update-cart') }}
                                     </button>
