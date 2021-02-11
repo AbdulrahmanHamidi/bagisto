@@ -120,7 +120,7 @@ class CategoryRepository extends Repository
      * @return bool
      */
     public function isSlugUnique($id, $slug)
-    {   
+    {
         $exists = CategoryTranslationProxy::modelClass()::where('category_id', '<>', $id)
             ->where('slug', $slug)
             ->limit(1)
@@ -155,7 +155,7 @@ class CategoryRepository extends Repository
      */
     public function findByPath(string $urlPath)
     {
-        return $this->model->whereTranslation('url_path', $urlPath)->first();
+        return $this->model->whereTranslation('slug', $urlPath)->first();
     }
 
     /**
